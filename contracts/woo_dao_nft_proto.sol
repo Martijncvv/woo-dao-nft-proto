@@ -22,7 +22,6 @@ contract WooDaoNftProto_1 is ERC721URIStorage, ERC721Burnable, Pausable, AccessC
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
-
     
 
     constructor() ERC721("WooDaoNftProto_1", "WDNP")  {
@@ -35,21 +34,13 @@ contract WooDaoNftProto_1 is ERC721URIStorage, ERC721Burnable, Pausable, AccessC
    
     }
 
-    /////////////////
-    // NOT IMPLEMENTED YET
-    modifier checkAllowTransfer() {
-         require(allowTransfer == true, 'WooDaoNftProto_1: ALLOW_TRANSFER_FALSE');
-         _;
-    }
     function enableTransfers() public onlyRole(PAUSER_ROLE) {
         allowTransfer = true;
     }
     function disableTransfers() public onlyRole(PAUSER_ROLE) {
         allowTransfer = false;
     }
-    // NOT IMPLEMENTED YET
-    /////////////////
-
+ 
     function pause() public onlyRole(PAUSER_ROLE) {
         _pause();
     }
@@ -76,6 +67,9 @@ contract WooDaoNftProto_1 is ERC721URIStorage, ERC721Burnable, Pausable, AccessC
         whenNotPaused
         override
     {
+        if (allowTransfer == false) {
+            require(hasRole(MINTER_ROLE, msg.sender), 'WooDaoNftProto_1: ALLOW_TRANSFER_FALSE');
+        }
         super._beforeTokenTransfer(from, to, tokenId);
     }
 

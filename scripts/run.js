@@ -1,24 +1,110 @@
 const main = async () => {
-	const [owner, person_2, person_3] = await hre.ethers.getSigners()
+	const [person_1, person_2, person_3] = await hre.ethers.getSigners()
 
 	const nftContractFactory = await hre.ethers.getContractFactory(
-		'wooDaoNftProto'
+		'WooDaoNftProto_1'
 	)
 	const nftContract = await nftContractFactory.deploy()
 	await nftContract.deployed()
 	console.log('WOO-DAO-NFT deployed to:', nftContract.address)
 
+	// ENABLE TRANSFER
+	let enable_1_transfer = await nftContract.enableTransfers()
+	await enable_1_transfer.wait()
+	console.log('TRANSFERS ENABLED')
+
+	// MINT
 	let mintTx_1 = await nftContract.mintNft(
 		person_2.address,
 		'https://jsonkeeper.com/b/H1IK'
 	)
 	await mintTx_1.wait()
+	console.log('mintTx_1', mintTx_1.from)
 
 	let mintTx_2 = await nftContract.mintNft(
-		person_3.address,
+		person_2.address,
 		'https://jsonkeeper.com/b/JZUW'
 	)
 	await mintTx_2.wait()
+	console.log('mintTx_2', mintTx_2.from)
+
+	let mintTx_3 = await nftContract.mintNft(
+		person_2.address,
+		'https://jsonkeeper.com/b/JZUW'
+	)
+	await mintTx_3.wait()
+	console.log('mintTx_3', mintTx_3.from)
+
+	let balanceOf_person_1 = await nftContract.balanceOf(person_1.address)
+	let balanceOf_person_2 = await nftContract.balanceOf(person_2.address)
+	let balanceOf_person_3 = await nftContract.balanceOf(person_3.address)
+	console.log('   balanceOf_person_1: ', balanceOf_person_1)
+	console.log('   balanceOf_person_2: ', balanceOf_person_2)
+	console.log('   balanceOf_person_3: ', balanceOf_person_3)
+
+	// TRANSFER
+	let transfer_id_0 = await nftContract
+		.connect(person_2)
+		.transferFrom(person_2.address, person_3.address, 0)
+	await transfer_id_0.wait()
+	console.log('- Transfer: person_2 -> person_3 - NFT ID 0')
+
+	// BALANCES
+	balanceOf_person_1 = await nftContract.balanceOf(person_1.address)
+	balanceOf_person_2 = await nftContract.balanceOf(person_2.address)
+	balanceOf_person_3 = await nftContract.balanceOf(person_3.address)
+	console.log('   balanceOf_person_1: ', balanceOf_person_1)
+	console.log('   balanceOf_person_2: ', balanceOf_person_2)
+	console.log('   balanceOf_person_3: ', balanceOf_person_3)
+
+	// PAUSE CONTRACT
+	let pause_contract_1 = await nftContract.pause()
+	await pause_contract_1.wait()
+	console.log('CONTRACT PAUSED')
+
+	// DISABLE TRANSFER
+	let disable_1_transfer = await nftContract.disableTransfers()
+	await disable_1_transfer.wait()
+	console.log('TRANSFERS DISABLED')
+
+	// MINT
+	let mintTx_4 = await nftContract.mintNft(
+		person_2.address,
+		'https://jsonkeeper.com/b/H1IA'
+	)
+	await mintTx_4.wait()
+	console.log('mintTx_4', mintTx_4.from)
+
+	// BALANCES
+	balanceOf_person_1 = await nftContract.balanceOf(person_1.address)
+	balanceOf_person_2 = await nftContract.balanceOf(person_2.address)
+	balanceOf_person_3 = await nftContract.balanceOf(person_3.address)
+	console.log('   balanceOf_person_1: ', balanceOf_person_1)
+	console.log('   balanceOf_person_2: ', balanceOf_person_2)
+	console.log('   balanceOf_person_3: ', balanceOf_person_3)
+
+	// TRANSFER
+	let transfer_id_1 = await nftContract
+		.connect(person_2)
+		.transferFrom(person_2.address, person_3.address, 1)
+	await transfer_id_1.wait()
+	console.log('- Transfer: person_2 -> person_3 - NFT ID 1')
+
+	// BALANCES
+	balanceOf_person_1 = await nftContract.balanceOf(person_1.address)
+	balanceOf_person_2 = await nftContract.balanceOf(person_2.address)
+	balanceOf_person_3 = await nftContract.balanceOf(person_3.address)
+	console.log('   balanceOf_person_1: ', balanceOf_person_1)
+	console.log('   balanceOf_person_2: ', balanceOf_person_2)
+	console.log('   balanceOf_person_3: ', balanceOf_person_3)
+
+	// BALANCES
+	balanceOf_person_1 = await nftContract.balanceOf(person_1.address)
+	balanceOf_person_2 = await nftContract.balanceOf(person_2.address)
+	balanceOf_person_3 = await nftContract.balanceOf(person_3.address)
+	console.log('   balanceOf_person_1: ', balanceOf_person_1)
+	console.log('   balanceOf_person_2: ', balanceOf_person_2)
+	console.log('   balanceOf_person_3: ', balanceOf_person_3)
 }
 
 const runMain = async () => {
