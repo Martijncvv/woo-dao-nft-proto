@@ -6,19 +6,19 @@ const main = async () => {
 	await nftContract.deployed()
 	console.log('WOO-DAO-NFT deployed to:', nftContract.address)
 
-	let mintTx_1 = await nftContract.mintNft(
+	let mintTx_0 = await nftContract.mintNft(
 		'0x56d8bf89371ba9ed001a27ac7a1fab640afe4f91',
-		'https://jsonkeeper.com/b/55WK'
+		'https://jsonkeeper.com/b/L81G'
 	)
-	await mintTx_1.wait()
-	console.log('Minted NFT #1')
+	await mintTx_0.wait()
+	console.log('Minted NFT #0')
 
-	// let mintTx_2 = await nftContract.mintNft(
+	// let mintTx_1 = await nftContract.mintNft(
 	// 	'0x60a88ec7941de1cb1f84b7ea475ae4b61f3cfe5a',
 	// 	'https://jsonkeeper.com/b/XRES'
 	// )
-	// await mintTx_2.wait()
-	// console.log('Minted NFT #2')
+	// await mintTx_1.wait()
+	// console.log('Minted NFT #1')
 }
 
 const runMain = async () => {
@@ -50,10 +50,10 @@ runMain()
 //       "trait_type": "WOOX Stake Tier",
 //       "value": 5
 //     },
-//     {
-//       "trait_type": "WOOFi Stake Tier",
-//       "value": 0
-//     },
+// {
+//   "trait_type": "WOOFi Stake Tier",
+//   "value": 0
+// },
 //     {
 //       "trait_type": "WOOX Volume Tier",
 //       "value": 6
@@ -67,10 +67,10 @@ runMain()
 //       "value": 4
 //     },
 //     {
-//     "display_type": "boost_number",
-//      "trait_type": "Trading Competition Win",
-//      "value": 3
-//      },
+// "display_type": "boost_number",
+//  "trait_type": "Trading Competition Win",
+//  "value": 3
+//  },
 //      {
 //      "display_type": "date",
 //      "trait_type": "birthday",
@@ -78,7 +78,7 @@ runMain()
 //     }
 //   ]
 // }
-// https://jsonkeeper.com/b/55WK
+// https://jsonkeeper.com/b/L81G
 
 // {
 //     "name": "WOODao Token",

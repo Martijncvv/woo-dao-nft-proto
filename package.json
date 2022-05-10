@@ -20,6 +20,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.6.0",
     "dotenv": "^16.0.0",
-    "git": "^0.1.5"
+    "git": "^0.1.5",
+    "hardhat-gas-reporter": "^1.0.8"
   }
 }
