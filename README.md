@@ -1,6 +1,6 @@
 # WOO-DAO NFT
 
-Smartcontract for a WOO DAO NFT feasability study.
+Smartcontract for a WOO DAO NFT feasibility study.
 
 ## Contract Functionality
 
